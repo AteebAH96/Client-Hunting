@@ -1,0 +1,9 @@
+node_modules/
+.env*
+!.env.example
+leads.csv
+leads.csv.lock
+leads.csv.*.tmp
+backups/
+.qa/
+.npm-cache/

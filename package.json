@@ -1,0 +1,21 @@
+{
+  "name": "client-hunter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A local lead finder and outreach notebook for freelance editors and developers.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.mjs",
+    "find": "node leads.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs",
+    "test:browser": "node test/browser.mjs"
+  },
+  "dependencies": {
+    "csv-parse": "^6.1.0",
+    "csv-stringify": "^6.6.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  },
+  "devDependencies": { "playwright-core": "^1.56.0" }
+}

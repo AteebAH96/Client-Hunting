@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fafaf8">
+  <meta name="description" content="Your local lead finder, outreach drafts and followups. Nothing sends automatically.">
+  <title>Client Hunter — Your working notebook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;450;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#leads-section">Skip to leads</a>
+  <div class="page-shell">
+    <header class="masthead">
+      <a class="wordmark" href="/" aria-label="Client Hunter home"><span class="monogram">ch</span><span>client hunter<span class="wordmark-period">.</span></span></a>
+      <div class="masthead-meta"><span class="micro">THE INDEPENDENT'S NOTEBOOK</span><span class="local-mark"><span class="small-dot"></span> Local to your laptop</span></div>
+    </header>
+
+    <main>
+      <section class="page-heading" aria-labelledby="page-title">
+        <div><p class="micro">FREELANCE WORK, THOUGHTFULLY FOUND</p><h1 id="page-title">Find your next <em>client.</em></h1><p class="muted intro">Find a lead. Start a conversation. Keep the thread.</p></div>
+        <div class="heading-aside"><time id="today-label"></time><span class="micro">PAKISTAN · YOUR WORKSPACE</span></div>
+      </section>
+
+      <section class="stats" aria-label="Lead counts">
+        <button class="stat" data-count-status="new" aria-label="Filter new leads"><span class="stat-number" id="count-new">0</span><span class="micro">NEW LEADS</span></button>
+        <button class="stat" data-count-status="sent" aria-label="Filter sent leads"><span class="stat-number" id="count-sent">0</span><span class="micro">MESSAGES SENT</span></button>
+        <button class="stat" data-count-status="replied" aria-label="Filter replied leads"><span class="stat-number" id="count-replied">0</span><span class="micro">CONVERSATIONS</span></button>
+        <button class="stat" data-count-status="won" aria-label="Filter won leads"><span class="stat-number" id="count-won">0</span><span class="micro">CLIENTS WON</span></button>
+      </section>
+
+      <section class="finder" aria-labelledby="finder-title">
+        <div class="section-intro"><p class="micro"><span class="section-number">01</span> DISCOVER</p><h2 id="finder-title">A place to <em>begin.</em></h2><p class="muted">Businesses to research for web projects.<br> Creators ready for a sample edit.</p><button class="text-button" id="settings-open">API setup <span aria-hidden="true">↗</span></button></div>
+        <form id="search-form" class="finder-form">
+          <div class="mode-tabs" role="group" aria-label="Search mode"><button type="button" class="mode-tab active" data-mode="web" aria-pressed="true"><span class="tab-index">01</span> Web development</button><button type="button" class="mode-tab" data-mode="video" aria-pressed="false"><span class="tab-index">02</span> Video editing</button></div>
+          <label class="micro" for="search-query" id="query-label">BUSINESS & LOCATION</label>
+          <div class="web-research-controls" id="web-research-controls"><label>Find businesses using<select id="web-provider"><option value="gemini" selected>Website links / Gemini</option><option value="places">Google Places / billing required</option></select></label><div id="website-links-field"><label for="website-links">BUSINESS WEBSITE LINKS</label><textarea id="website-links" rows="4" maxlength="40000" placeholder="Paste website or contact-page links, one per line" aria-describedby="website-help"></textarea><p class="muted small" id="website-help">Use the business home page and contact page for better coverage. Up to 3 pages per business. Gemini reads these links using your existing key.</p></div></div>
+          <div class="search-input-row"><input id="search-query" name="query" placeholder="e.g. clothing store Lahore" required maxlength="300" autocomplete="off"><button class="button primary" id="run-search" type="submit">Run search <span aria-hidden="true">↗</span></button></div>
+          <div class="search-options"><label>Candidates <select id="search-limit"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></label><label id="reviews-field">Min. reviews <input id="min-reviews" type="number" min="0" max="100000" value="5"></label><label class="checkbox-label"><input id="search-draft" type="checkbox" checked> Draft messages</label></div>
+          <p class="search-estimate muted" id="search-estimate">One Places request · up to 10 businesses · API billing applies.</p>
+          <div id="search-output-box" class="search-output-box" hidden><div class="output-heading"><span class="micro" id="job-label">SEARCH OUTPUT</span><button type="button" class="text-button" id="hide-output">Hide</button></div><pre id="search-output" aria-live="polite"></pre></div>
+        </form>
+      </section>
+
+      <section id="followup-section" class="followup-section" aria-labelledby="followup-title" hidden>
+        <div class="followup-label"><span class="micro" id="followup-title">FOLLOW UP TODAY</span><span class="muted" id="followup-caption"></span></div><div id="followup-list" class="followup-list"></div>
+      </section>
+
+      <section id="leads-section" class="leads-section" aria-labelledby="leads-title">
+        <div class="leads-heading"><div><p class="micro"><span class="section-number">02</span> YOUR PIPELINE</p><h2 id="leads-title">The <em>shortlist.</em> <span id="total-count" class="total-count">0</span></h2></div><button class="button secondary" id="add-open">Add a lead <span aria-hidden="true">+</span></button></div>
+        <div class="filters"><label class="name-search"><span class="sr-only">Search leads by name</span><input id="name-filter" type="search" placeholder="Search by name…" autocomplete="off"></label><label><span class="sr-only">Filter by type</span><select id="type-filter"><option value="">All types</option><option value="web">Web development</option><option value="video">Video editing</option></select></label><label><span class="sr-only">Filter by status</span><select id="status-filter"><option value="">All statuses</option><option value="new">New</option><option value="sent">Sent</option><option value="replied">Replied</option><option value="won">Won</option><option value="lost">Lost</option></select></label><label><span class="sr-only">Sort leads</span><select id="sort-order"><option value="followup">Followup date ↑</option><option value="newest">Newest first</option><option value="name">Name A–Z</option></select></label></div>
+        <p id="load-error" class="inline-error" role="alert" hidden></p>
+        <div class="table-wrap"><table><thead><tr><th scope="col">NAME / SOURCE</th><th scope="col">TYPE</th><th scope="col">CONTACT</th><th scope="col">RATING / AUDIENCE</th><th scope="col">STATUS</th><th scope="col">FOLLOWUP</th><th scope="col"><span class="sr-only">Open details</span></th></tr></thead><tbody id="lead-rows"></tbody></table></div>
+        <div class="empty-state" id="empty-state"><span class="empty-symbol" aria-hidden="true">—</span><h3>Your next conversation starts here.</h3><p class="muted">Run a search above, or add a lead you already have.</p><button class="text-button" id="empty-add">Add your first lead <span aria-hidden="true">↗</span></button></div>
+        <div class="table-footer"><span id="visible-count">0 leads</span><span>One conversation at a time.</span></div>
+      </section>
+    </main>
+    <footer class="footer"><span class="footer-brand">client hunter.</span><span>Saved in leads.csv <span aria-hidden="true">·</span> Drafts only. You choose when to send.</span><button class="text-button" id="refresh-button">Refresh <span aria-hidden="true">↻</span></button></footer>
+  </div>
+
+  <dialog id="detail-dialog" class="detail-dialog" aria-labelledby="detail-name">
+    <div class="panel-top"><span class="micro">LEAD DETAILS</span><button type="button" class="close-button" id="detail-close" aria-label="Close lead details">×</button></div>
+    <div class="panel-content"><p class="micro" id="detail-type"></p><h2 id="detail-name"></h2><p class="muted" id="detail-source"></p><div class="detail-facts" id="detail-facts"></div>
+      <div class="detail-links"><a class="button secondary" id="open-link" target="_blank" rel="noopener noreferrer">Open link <span aria-hidden="true">↗</span></a><a class="text-button" id="about-link" target="_blank" rel="noopener noreferrer" hidden>Channel About ↗</a></div>
+      <div id="recent-section" class="recent-section" hidden><p class="micro">RECENT VIDEOS · FETCHED FROM YOUTUBE</p><ul id="recent-videos"></ul></div>
+      <section id="research-section" class="panel-section" hidden><p class="micro">WEBSITE RESEARCH / REVIEW THE SOURCES</p><p class="muted small">Gemini extracted these details from public pages. Check the source before contacting. A listed phone number does not confirm WhatsApp availability.</p><div id="research-evidence" class="research-evidence"></div><div id="research-pages" class="research-pages"></div></section>
+      <div class="panel-section"><div class="label-row"><label class="micro" for="detail-message">YOUR MESSAGE</label><button type="button" class="text-button" id="draft-button">Draft with Gemini ↗</button></div><textarea id="detail-message" rows="7" maxlength="20000" placeholder="Write a personal message, or draft one with Gemini."></textarea><div class="message-meta"><span id="word-count">0 / 60 words</span><span>Roman Urdu · review before sending</span></div><div class="message-actions"><button class="button primary" type="button" id="copy-message">Copy message</button><a class="button secondary" id="open-email" hidden>Open email draft <span aria-hidden="true">&#8599;</span></a><a class="button secondary" id="open-whatsapp" target="_blank" rel="noopener noreferrer">Open WhatsApp <span aria-hidden="true">↗</span></a></div><p class="muted small" id="no-phone" hidden>No phone number. Use the channel About page to look for contact details.</p></div>
+      <div class="panel-section"><div class="detail-status-row"><label><span class="micro">STATUS</span><select id="detail-status"><option value="new">New</option><option value="sent">Sent</option><option value="replied">Replied</option><option value="won">Won</option><option value="lost">Lost</option></select></label><label><span class="micro">FOLLOWUP</span><input id="detail-followup" type="date"></label></div><p class="muted small" id="sent-on"></p><label class="micro" for="detail-notes">NOTES</label><textarea id="detail-notes" rows="4" maxlength="20000" placeholder="A detail to remember. A conversation to pick up."></textarea></div>
+      <p id="detail-error" class="inline-error" role="alert" hidden></p><div class="panel-bottom"><span class="muted small" id="save-state" role="status">All changes saved</span><button class="text-button destructive" type="button" id="delete-lead">Delete lead</button></div>
+    </div>
+  </dialog>
+
+  <dialog id="add-dialog" class="form-dialog" aria-labelledby="add-title"><form id="add-form"><div class="panel-top"><span class="micro">ADD TO YOUR SHORTLIST</span><button type="button" class="close-button" id="add-close" aria-label="Close add form">×</button></div><h2 id="add-title">A new <em>possibility.</em></h2><p class="muted">A business, a creator, or someone you came across.</p><label>Name<input name="name" required maxlength="300" placeholder="Business or channel name"></label><div class="form-grid"><label>Type<select name="type"><option value="web">Web development</option><option value="video">Video editing</option></select></label><label>Source<input name="source" maxlength="300" placeholder="e.g. Instagram, referral"></label></div><label>Phone<input name="phone" type="tel" maxlength="40" placeholder="+92 300 1234567"></label><label>Link<input name="link" type="url" maxlength="2000" placeholder="https://…"></label><p class="muted small">Add a phone number or a link. Instagram leads are entered manually.</p><p id="add-error" class="inline-error" role="alert" hidden></p><button type="submit" class="button primary" id="add-submit">Add lead <span aria-hidden="true">↗</span></button></form></dialog>
+
+  <dialog id="settings-dialog" class="form-dialog" aria-labelledby="settings-title"><div class="panel-top"><span class="micro">LOCAL SETTINGS</span><button type="button" class="close-button" id="settings-close" aria-label="Close API setup">×</button></div><h2 id="settings-title">Ready to <em>search.</em></h2><p class="muted">Add your keys to the .env file in the app folder, then restart the server. Key values stay on your laptop.</p><dl id="key-status" class="key-status"></dl><p class="muted small">Google Places finds businesses. YouTube finds channels. Gemini drafts messages. Manual leads work without keys.</p><p class="micro">DRAFT MODEL</p><p id="model-label"></p><p class="muted small">Set MODEL, SENDER_NAME and PORTFOLIO_URL in .env. Setup links and instructions are in README.md.</p></dialog>
+
+  <dialog id="confirm-dialog" class="form-dialog confirm-dialog" aria-labelledby="confirm-title"><p class="micro">REMOVE FROM SHORTLIST</p><h2 id="confirm-title">Delete this lead?</h2><p class="muted" id="confirm-copy"></p><div class="confirm-actions"><button class="button secondary" id="delete-cancel">Keep lead</button><button class="button primary" id="delete-confirm">Delete lead</button></div><p id="delete-error" class="inline-error" role="alert" hidden></p></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
